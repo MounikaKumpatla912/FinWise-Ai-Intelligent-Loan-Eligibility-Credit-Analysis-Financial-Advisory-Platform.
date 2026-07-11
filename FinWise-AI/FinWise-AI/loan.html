@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loan Eligibility Checker — FinWise AI</title>
+<meta name="description" content="Check your loan eligibility instantly based on salary, credit score, EMI, and age." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="bg-orbit"></div>
+<div class="noise-layer"></div>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>FinWise <span class="gradient-text">AI</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="loan.html" class="active">Loan Eligibility</a></li>
+      <li><a href="credit.html">Credit Analyzer</a></li>
+      <li><a href="emi.html">EMI Calculator</a></li>
+      <li><a href="advisor.html">AI Advisor</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="advisor.html" class="btn btn-primary"><i class="fa-solid fa-sparkles"></i> Ask AI</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Loan Eligibility</span>
+    <h1>Find out what you qualify for</h1>
+    <p>Fill in your details below for an instant, transparent eligibility verdict with risk classification and tailored advice.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <form id="eligibility-form" class="glass-card form-panel" novalidate>
+      <div class="form-grid">
+        <div class="field" data-field="name">
+          <label for="name">Applicant Name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="e.g. Ananya Sharma" autocomplete="name" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="salary">
+          <label for="salary">Monthly Salary (₹) <span class="req">*</span></label>
+          <input type="number" id="salary" name="salary" placeholder="e.g. 65000" min="0" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="creditScore">
+          <label for="creditScore">Credit Score <span class="req">*</span></label>
+          <input type="number" id="creditScore" name="creditScore" placeholder="e.g. 760" min="300" max="900" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="existingEmi">
+          <label for="existingEmi">Existing EMI (₹) <span class="req">*</span></label>
+          <input type="number" id="existingEmi" name="existingEmi" placeholder="0 if none" min="0" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="age">
+          <label for="age">Age <span class="req">*</span></label>
+          <input type="number" id="age" name="age" placeholder="e.g. 29" min="18" max="80" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="employmentType">
+          <label for="employmentType">Employment Type <span class="req">*</span></label>
+          <select id="employmentType" name="employmentType" required>
+            <option value="">Select type</option>
+            <option value="salaried">Salaried</option>
+            <option value="self-employed">Self-Employed</option>
+            <option value="business-owner">Business Owner</option>
+            <option value="freelancer">Freelancer</option>
+          </select>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="loanType">
+          <label for="loanType">Loan Type <span class="req">*</span></label>
+          <select id="loanType" name="loanType" required>
+            <option value="">Select loan type</option>
+            <option value="personal">Personal Loan</option>
+            <option value="home">Home Loan</option>
+            <option value="car">Car Loan</option>
+            <option value="education">Education Loan</option>
+            <option value="business">Business Loan</option>
+          </select>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="city">
+          <label for="city">City <span class="req">*</span></label>
+          <input type="text" id="city" name="city" placeholder="e.g. Hyderabad" required>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field" data-field="requiredAmount">
+          <label for="requiredAmount">Required Loan Amount (₹) <span class="req">*</span></label>
+          <input type="number" id="requiredAmount" name="requiredAmount" placeholder="e.g. 1200000" min="0" required>
+          <span class="error-msg"></span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:30px;">
+        <i class="fa-solid fa-magnifying-glass-dollar"></i> Check My Eligibility
+      </button>
+    </form>
+
+    <div id="eligibility-result" class="glass-card result-panel"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2026 FinWise AI. All rights reserved.</span>
+      <span>Not a licensed financial institution — for informational purposes only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/eligibility.js"></script>
+</body>
+</html>

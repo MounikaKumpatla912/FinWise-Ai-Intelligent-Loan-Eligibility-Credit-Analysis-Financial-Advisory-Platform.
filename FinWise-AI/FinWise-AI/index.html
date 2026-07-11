@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinWise AI — Intelligent Loan Eligibility & Financial Advisory</title>
+<meta name="description" content="Check loan eligibility, analyze your credit score, calculate EMI, and get AI-powered financial advice — all in one premium fintech platform." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="bg-orbit"></div>
+<div class="noise-layer"></div>
+
+<!-- ================= NAVIGATION ================= -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>
+      FinWise <span class="gradient-text">AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="loan.html">Loan Eligibility</a></li>
+      <li><a href="credit.html">Credit Analyzer</a></li>
+      <li><a href="emi.html">EMI Calculator</a></li>
+      <li><a href="advisor.html">AI Advisor</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="loan.html" class="btn btn-ghost">Check Eligibility</a>
+      <a href="advisor.html" class="btn btn-primary"><i class="fa-solid fa-sparkles"></i> Ask AI</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="hero-badge"><i class="fa-solid fa-circle-check"></i> Trusted by 50,000+ users across India</span>
+      <h1>Your money decisions,<br><span class="gradient-text">backed by AI clarity.</span></h1>
+      <p class="lead">FinWise AI checks loan eligibility, reads your credit score, calculates EMIs, and hands you a personal financial advisor — in one place, in seconds.</p>
+      <div class="hero-actions">
+        <a href="loan.html" class="btn btn-primary"><i class="fa-solid fa-file-invoice-dollar"></i> Check Loan Eligibility</a>
+        <a href="advisor.html" class="btn btn-ghost"><i class="fa-solid fa-comments"></i> Talk to AI Advisor</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num"><span data-counter="50000">0</span>+</div><div class="label">Users Assessed</div></div>
+        <div class="hero-stat"><div class="num">₹<span data-counter="480">0</span>Cr+</div><div class="label">Loans Evaluated</div></div>
+        <div class="hero-stat"><div class="num"><span data-counter="97">0</span>%</div><div class="label">Accuracy Rate</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="trust-ring-wrap">
+        <svg viewBox="0 0 220 220" width="100%" height="100%">
+          <circle cx="110" cy="110" r="92" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14"/>
+          <circle cx="110" cy="110" r="92" fill="none" stroke="url(#heroGrad)" stroke-width="14" stroke-linecap="round"
+            stroke-dasharray="578" stroke-dashoffset="90" transform="rotate(-90 110 110)"/>
+          <defs>
+            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4fd1e8"/>
+              <stop offset="100%" stop-color="#9b5cff"/>
+            </linearGradient>
+          </defs>
+          <text x="110" y="102" text-anchor="middle" fill="#f2f2fb" font-family="Inter, sans-serif" font-size="34" font-weight="700">842</text>
+          <text x="110" y="126" text-anchor="middle" fill="#a3a3c9" font-family="Poppins, sans-serif" font-size="12">Trust Score</text>
+        </svg>
+        <div class="floater f1"><i class="fa-solid fa-shield-halved"></i> Risk: Low</div>
+        <div class="floater f2"><i class="fa-solid fa-bolt"></i> Instant Approval</div>
+        <div class="floater f3"><i class="fa-solid fa-robot"></i> AI Verified</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ANIMATED STATS ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="stats-bar glass-card reveal">
+      <div class="stat-card"><div class="num gradient-text"><span data-counter="12">0</span>K+</div><div class="label">Loans Approved</div></div>
+      <div class="stat-card"><div class="num gradient-text"><span data-counter="4.9">0</span>/5</div><div class="label">Average Rating</div></div>
+      <div class="stat-card"><div class="num gradient-text"><span data-counter="24">0</span>/7</div><div class="label">AI Advisor Uptime</div></div>
+      <div class="stat-card"><div class="num gradient-text"><span data-counter="8">0</span> min</div><div class="label">Avg. Decision Time</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why FinWise AI</span>
+      <h2>Everything your finances need, minus the guesswork</h2>
+      <p>One dashboard for eligibility, credit health, EMI planning, and AI-backed guidance.</p>
+    </div>
+    <div class="grid-3 reveal-stagger reveal">
+      <div class="feature-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3>Instant Eligibility Checks</h3>
+        <p>Get a clear approved/declined verdict with eligible loan amount, in under a minute.</p>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-shield-heart"></i></div>
+        <h3>Transparent Risk Scoring</h3>
+        <p>See exactly why you're classified Low, Medium, or High risk — no black boxes.</p>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-brain"></i></div>
+        <h3>AI Financial Advisor</h3>
+        <p>Ask anything — from EMI stress to investment basics — and get grounded answers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Services</span>
+      <h2>Four tools. One financial picture.</h2>
+    </div>
+    <div class="grid-2 reveal-stagger reveal">
+      <div class="service-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3>Loan Eligibility Engine</h3>
+        <p>Enter your salary, credit score, and existing obligations to see your eligible loan amount and risk band instantly.</p>
+        <a href="loan.html" class="service-link">Check eligibility <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-chart-pie"></i></div>
+        <h3>Credit Score Analyzer</h3>
+        <p>Visualize your score on an interactive ring, understand your classification, and get tailored improvement tips.</p>
+        <a href="credit.html" class="service-link">Analyze credit <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-calculator"></i></div>
+        <h3>EMI Calculator</h3>
+        <p>Model any loan with real-time sliders and a live payment breakdown chart — principal vs. interest, instantly.</p>
+        <a href="emi.html" class="service-link">Calculate EMI <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card glass-card">
+        <div class="icon-badge"><i class="fa-solid fa-robot"></i></div>
+        <h3>AI Financial Advisor</h3>
+        <p>A conversational advisor that factors in your profile to suggest savings, budgeting, and investment moves.</p>
+        <a href="advisor.html" class="service-link">Chat with AI <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI BENEFITS ================= -->
+<section class="section">
+  <div class="container">
+    <div class="glass-card reveal" style="padding:50px;">
+      <div class="hero-grid" style="gap:40px;">
+        <div>
+          <span class="eyebrow">Powered by Claude</span>
+          <h2 style="margin-bottom:18px;">AI that understands your money, not just your numbers</h2>
+          <p style="color:var(--text-dim);margin-bottom:26px;">FinWise AI's advisor is grounded in your actual financial profile — salary, credit score, and EMI load — so every suggestion is specific to you, not generic advice copy-pasted from a blog.</p>
+          <ul class="reasons-list">
+            <li><i class="fa-solid fa-check"></i>Personalized loan and credit-improvement guidance</li>
+            <li><i class="fa-solid fa-check"></i>Plain-language budget and savings planning</li>
+            <li><i class="fa-solid fa-check"></i>Emergency fund and investment-category suggestions</li>
+          </ul>
+        </div>
+        <div class="chat-header glass-card" style="padding:20px;">
+          <span class="status-dot"></span>
+          <div>
+            <strong>FinWise Advisor</strong>
+            <div style="font-size:0.8rem;color:var(--text-faint);">Online — grounded in your profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What our users say</h2>
+    </div>
+    <div class="testimonial-track reveal-stagger reveal">
+      <div class="testimonial-card glass-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="quote">I found out my exact eligible loan amount in two minutes — no branch visit, no waiting on hold.</p>
+        <div class="testimonial-author"><div class="avatar-badge">RA</div><div class="who"><strong>Rahul A.</strong><span>Home Loan Applicant</span></div></div>
+      </div>
+      <div class="testimonial-card glass-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="quote">The credit analyzer's tips actually moved my score. The AI advisor explained things my bank never did.</p>
+        <div class="testimonial-author"><div class="avatar-badge">SP</div><div class="who"><strong>Sneha P.</strong><span>Credit Builder</span></div></div>
+      </div>
+      <div class="testimonial-card glass-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+        <p class="quote">The EMI calculator's live chart made comparing tenure options genuinely easy to understand.</p>
+        <div class="testimonial-author"><div class="avatar-badge">MK</div><div class="who"><strong>Manoj K.</strong><span>Car Loan Shopper</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item glass-card">
+        <div class="faq-q">Is my financial data stored anywhere? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">Eligibility check results are optionally logged to a Google Sheet you control, purely for your own records. Nothing is shared with third parties.</div>
+      </div>
+      <div class="faq-item glass-card">
+        <div class="faq-q">How is the eligible loan amount calculated? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">As a baseline, we use 20× your verified monthly salary, adjusted by risk factors like credit score, existing EMI load, and age.</div>
+      </div>
+      <div class="faq-item glass-card">
+        <div class="faq-q">Does the AI advisor replace a real financial advisor? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">No — it's a starting point for financial literacy and planning. For high-stakes decisions, always consult a licensed professional.</div>
+      </div>
+      <div class="faq-item glass-card">
+        <div class="faq-q">What credit score range does the analyzer use? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">300–649 is Poor, 650–749 is Good, and 750–900 is Excellent — matching common Indian credit bureau scales.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner glass-card reveal">
+      <h2>Ready to see where you stand?</h2>
+      <p>Run a free eligibility check or ask the AI advisor a question — takes less than two minutes.</p>
+      <a href="loan.html" class="btn btn-primary"><i class="fa-solid fa-arrow-right"></i> Get Started Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>FinWise <span class="gradient-text">AI</span></a>
+        <p>An AI-powered financial platform for loan eligibility, credit analysis, EMI planning, and personal financial advisory.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="loan.html">Loan Eligibility</a></li>
+          <li><a href="credit.html">Credit Analyzer</a></li>
+          <li><a href="emi.html">EMI Calculator</a></li>
+          <li><a href="advisor.html">AI Advisor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 FinWise AI. All rights reserved.</span>
+      <span>Not a licensed financial institution — for informational purposes only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

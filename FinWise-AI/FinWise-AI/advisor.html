@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Financial Advisor — FinWise AI</title>
+<meta name="description" content="Chat with an AI financial advisor grounded in your personal financial profile." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="bg-orbit"></div>
+<div class="noise-layer"></div>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>FinWise <span class="gradient-text">AI</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="loan.html">Loan Eligibility</a></li>
+      <li><a href="credit.html">Credit Analyzer</a></li>
+      <li><a href="emi.html">EMI Calculator</a></li>
+      <li><a href="advisor.html" class="active">AI Advisor</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="loan.html" class="btn btn-ghost">Check Eligibility</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">AI Advisor</span>
+    <h1>Ask FinWise anything about your money</h1>
+    <p>Fill in a quick financial snapshot, then chat — advice is grounded in your numbers, not generic tips.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="chat-shell">
+      <aside class="glass-card chat-side">
+        <h3>Your Financial Snapshot</h3>
+        <div class="chat-profile-field">
+          <label for="adv-salary">Monthly Salary (₹)</label>
+          <input type="number" id="adv-salary" placeholder="e.g. 65000">
+        </div>
+        <div class="chat-profile-field">
+          <label for="adv-credit">Credit Score</label>
+          <input type="number" id="adv-credit" placeholder="e.g. 720" min="300" max="900">
+        </div>
+        <div class="chat-profile-field">
+          <label for="adv-emi">Existing EMI (₹)</label>
+          <input type="number" id="adv-emi" placeholder="0 if none">
+        </div>
+        <div class="chat-profile-field">
+          <label for="adv-goal">Primary Goal</label>
+          <select id="adv-goal">
+            <option value="loan">Getting a loan</option>
+            <option value="credit">Improving credit</option>
+            <option value="savings">Saving more</option>
+            <option value="investing">Starting to invest</option>
+            <option value="budget">Budgeting better</option>
+          </select>
+        </div>
+        <div class="chip-row">
+          <span class="chip" data-prompt="Am I ready to apply for a home loan?">Home loan readiness</span>
+          <span class="chip" data-prompt="How can I improve my credit score fastest?">Boost credit score</span>
+          <span class="chip" data-prompt="How much should my emergency fund be?">Emergency fund size</span>
+          <span class="chip" data-prompt="How should I start investing as a beginner?">Start investing</span>
+        </div>
+      </aside>
+
+      <div class="glass-card chat-main">
+        <div class="chat-header">
+          <span class="status-dot"></span>
+          <div>
+            <strong>FinWise Advisor</strong>
+            <div style="font-size:0.78rem;color:var(--text-faint);">Grounded in your snapshot</div>
+          </div>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Ask about loans, credit, savings, or investing…">
+          <button class="chat-send-btn" id="chat-send" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2026 FinWise AI. All rights reserved.</span>
+      <span>AI advice is informational only, not a substitute for a licensed financial advisor.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/advisor.js"></script>
+</body>
+</html>

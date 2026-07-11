@@ -1,0 +1,67 @@
+/* ==========================================================================
+   FinWise AI — Responsive Rules
+   Desktop-first: sidebar/wide layouts -> tablet 2-col -> mobile 1-col
+   ========================================================================== */
+
+/* Tablet (<=1024px): two-column layouts */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero p.lead { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { margin-top: 40px; }
+
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-track { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .emi-layout { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .chat-shell { grid-template-columns: 240px 1fr; height: auto; }
+}
+
+/* Mobile (<=768px): single column, touch friendly */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta .btn-ghost { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.mobile-open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 16px; right: 16px; background: rgba(10,10,31,0.95);
+    border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+    padding: 24px; gap: 20px; backdrop-filter: blur(20px);
+  }
+
+  .section { padding: 64px 0; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .testimonial-track { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .team-grid { grid-template-columns: 1fr; }
+
+  .form-grid { grid-template-columns: 1fr; }
+  .result-metrics { grid-template-columns: 1fr; }
+  .tips-grid { grid-template-columns: 1fr; }
+  .emi-layout { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+
+  .chat-shell { grid-template-columns: 1fr; }
+  .chat-side { order: 2; }
+  .chat-main { order: 1; height: 520px; }
+  .msg { max-width: 90%; }
+
+  .page-header { padding: 120px 0 40px; }
+  .hero { padding-top: 100px; }
+  .trust-ring-wrap { width: 280px; height: 280px; }
+
+  /* touch targets */
+  .btn, .field input, .field select, .chip { min-height: 44px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .hero h1 { font-size: 2rem; }
+  .hero-stats { flex-wrap: wrap; gap: 20px; }
+  .form-panel, .chat-side, .contact-info-card { padding: 22px; }
+}

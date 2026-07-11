@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EMI Calculator — FinWise AI</title>
+<meta name="description" content="Calculate your monthly EMI, total interest, and total payment with a live breakdown chart." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="bg-orbit"></div>
+<div class="noise-layer"></div>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-wave-square"></i></span>FinWise <span class="gradient-text">AI</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="loan.html">Loan Eligibility</a></li>
+      <li><a href="credit.html">Credit Analyzer</a></li>
+      <li><a href="emi.html" class="active">EMI Calculator</a></li>
+      <li><a href="advisor.html">AI Advisor</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="advisor.html" class="btn btn-primary"><i class="fa-solid fa-sparkles"></i> Ask AI</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">EMI Calculator</span>
+    <h1>Model your loan before you sign</h1>
+    <p>Adjust the sliders to see your EMI, interest, and total payment update live.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="emi-layout">
+      <div class="glass-card form-panel">
+        <div class="field">
+          <label for="emi-principal">Principal Amount — <span id="emi-principal-val">₹0</span></label>
+          <input type="range" id="emi-principal" min="50000" max="10000000" step="10000" value="1200000">
+          <div class="range-row"><span>₹50K</span><span>₹1Cr</span></div>
+        </div>
+        <div class="field" style="margin-top:24px;">
+          <label for="emi-rate">Annual Interest Rate — <span id="emi-rate-val">0%</span></label>
+          <input type="range" id="emi-rate" min="4" max="24" step="0.1" value="9.5">
+          <div class="range-row"><span>4%</span><span>24%</span></div>
+        </div>
+        <div class="field" style="margin-top:24px;">
+          <label for="emi-tenure">Tenure (Years) — <span id="emi-tenure-val">0 yrs</span></label>
+          <input type="range" id="emi-tenure" min="1" max="30" step="1" value="15">
+          <div class="range-row"><span>1 yr</span><span>30 yrs</span></div>
+        </div>
+
+        <div class="breakdown-list">
+          <div class="breakdown-row"><span><span class="dot" style="background:#4fd1e8;"></span>Principal</span><span id="emi-principal-row">₹0</span></div>
+          <div class="breakdown-row"><span><span class="dot" style="background:#9b5cff;"></span>Total Interest</span><span id="emi-interest-row">₹0</span></div>
+          <div class="breakdown-row"><span><span class="dot" style="background:transparent;"></span>Tenure</span><span id="emi-months-row">0 months</span></div>
+        </div>
+      </div>
+
+      <div class="glass-card form-panel" style="text-align:center;">
+        <h3 style="margin-bottom:20px;">Monthly EMI</h3>
+        <div style="font-family:var(--font-data);font-size:2.6rem;font-weight:700;" class="gradient-text" id="emi-monthly">₹0</div>
+        <div class="chart-wrap" style="margin:30px 0;">
+          <canvas id="emi-chart" width="260" height="260" style="width:260px;height:260px;"></canvas>
+        </div>
+        <div class="result-metrics" style="grid-template-columns:repeat(2,1fr);">
+          <div class="metric-box">
+            <div class="val" id="emi-total-interest">₹0</div>
+            <div class="lab">Total Interest</div>
+          </div>
+          <div class="metric-box">
+            <div class="val" id="emi-total-payment">₹0</div>
+            <div class="lab">Total Payment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2026 FinWise AI. All rights reserved.</span>
+      <span>Not a licensed financial institution — for informational purposes only.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/emi.js"></script>
+</body>
+</html>
