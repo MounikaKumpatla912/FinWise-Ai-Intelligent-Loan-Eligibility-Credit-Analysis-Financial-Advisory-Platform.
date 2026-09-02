@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — FinWise AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<button class="fw-nav-toggle" id="fw-nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+<div class="fw-nav-overlay" id="fw-nav-overlay"></div>
+
+<div class="fw-app">
+  <aside class="fw-sidebar" id="fw-sidebar"></aside>
+
+  <main class="fw-main">
+    <div class="fw-container">
+      <div class="fw-page-header">
+        <h1>Contact Us</h1>
+        <p>Questions about FinWise AI? Send us a message.</p>
+      </div>
+
+      <div class="fw-contact-grid">
+        <form class="fw-card" id="contact-form" novalidate>
+          <div class="fw-field">
+            <label for="ct-name">Name</label>
+            <input type="text" id="ct-name" name="name" placeholder="Your full name" required>
+            <div class="fw-error-msg" data-error-for="name"></div>
+          </div>
+          <div class="fw-field mt-16">
+            <label for="ct-email">Email</label>
+            <input type="email" id="ct-email" name="email" placeholder="you@example.com" required>
+            <div class="fw-error-msg" data-error-for="email"></div>
+          </div>
+          <div class="fw-field mt-16">
+            <label for="ct-subject">Subject</label>
+            <input type="text" id="ct-subject" name="subject" placeholder="What's this about?" required>
+            <div class="fw-error-msg" data-error-for="subject"></div>
+          </div>
+          <div class="fw-field mt-16">
+            <label for="ct-message">Message</label>
+            <input type="text" id="ct-message" name="message" placeholder="Write your message..." required style="height:110px; align-items:flex-start;">
+            <div class="fw-error-msg" data-error-for="message"></div>
+          </div>
+          <button type="submit" class="fw-btn fw-btn-primary fw-btn-block mt-24">Send Message</button>
+        </form>
+
+        <div>
+          <div class="fw-card">
+            <div class="fw-contact-info-card">
+              <i class="fa-solid fa-envelope"></i>
+              <div><h4>Email</h4><p>support@finwiseai.example</p></div>
+            </div>
+            <div class="fw-contact-info-card">
+              <i class="fa-solid fa-phone"></i>
+              <div><h4>Phone</h4><p>+91 90000 00000</p></div>
+            </div>
+            <div class="fw-contact-info-card">
+              <i class="fa-solid fa-location-dot"></i>
+              <div><h4>Location</h4><p>Hyderabad, Telangana, India</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="fw-footer" id="fw-footer"></footer>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    document.querySelectorAll("[data-error-for]").forEach(el => el.textContent = "");
+    document.querySelectorAll(".fw-field.invalid").forEach(el => el.classList.remove("invalid"));
+
+    let hasError = false;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!form.name.value.trim()) { setError("name", "Please enter your name."); hasError = true; }
+    if (!emailPattern.test(form.email.value.trim())) { setError("email", "Please enter a valid email address."); hasError = true; }
+    if (!form.subject.value.trim()) { setError("subject", "Please enter a subject."); hasError = true; }
+    if (!form.message.value.trim()) { setError("message", "Please enter a message."); hasError = true; }
+
+    if (hasError) { showToast("Please correct the highlighted fields.", "warning"); return; }
+
+    form.reset();
+    showToast("Your message has been sent. We'll get back to you soon.", "success");
+  });
+
+  function setError(field, msg) {
+    const el = document.querySelector(`[data-error-for="${field}"]`);
+    el.textContent = msg;
+    el.closest(".fw-field").classList.add("invalid");
+  }
+});
+</script>
+</body>
+</html>

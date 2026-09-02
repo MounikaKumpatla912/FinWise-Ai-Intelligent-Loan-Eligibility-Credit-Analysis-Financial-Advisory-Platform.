@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMI Calculator — FinWise AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<button class="fw-nav-toggle" id="fw-nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+<div class="fw-nav-overlay" id="fw-nav-overlay"></div>
+
+<div class="fw-app">
+  <aside class="fw-sidebar" id="fw-sidebar"></aside>
+
+  <main class="fw-main">
+    <div class="fw-container">
+      <div class="fw-page-header">
+        <h1>EMI Calculator</h1>
+        <p>Calculate your Equated Monthly Instalment instantly.</p>
+      </div>
+
+      <div class="fw-grid-2" style="align-items:start;">
+        <form class="fw-card" id="emi-form" novalidate>
+          <div class="fw-field">
+            <label for="e-amount">Loan Amount (₹)</label>
+            <input type="number" id="e-amount" name="loanAmount" placeholder="e.g. 1000000" min="0" required value="1000000">
+            <div class="fw-error-msg" data-error-for="loanAmount"></div>
+          </div>
+          <div class="fw-field mt-16">
+            <label for="e-rate">Interest Rate (% per annum)</label>
+            <input type="number" step="0.1" id="e-rate" name="interestRate" placeholder="e.g. 8.5" min="0" required value="8.5">
+            <div class="fw-error-msg" data-error-for="interestRate"></div>
+          </div>
+          <div class="fw-field mt-16">
+            <label for="e-tenure">Loan Tenure (years)</label>
+            <input type="number" step="0.1" id="e-tenure" name="loanTenure" placeholder="e.g. 5" min="0" required value="5">
+            <div class="fw-error-msg" data-error-for="loanTenure"></div>
+          </div>
+          <button type="submit" class="fw-btn fw-btn-primary fw-btn-block mt-24">Calculate EMI</button>
+        </form>
+
+        <div class="fw-card" id="emi-result">
+          <div class="fw-empty-state">
+            <i class="fa-solid fa-calculator"></i>
+            <p>Enter loan details to see your EMI breakdown.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fw-card mt-24" id="emi-recent-card">
+        <h3 style="font-size:1rem;">Recent Calculations</h3>
+        <div class="fw-recent-list" id="emi-recent-list"></div>
+        <button class="fw-btn fw-btn-ghost mt-16" id="emi-clear-history" style="display:none;">Clear History</button>
+      </div>
+    </div>
+    <footer class="fw-footer" id="fw-footer"></footer>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/eligibility.js"></script>
+<script src="js/emi.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("emi-form");
+  const resultBox = document.getElementById("emi-result");
+
+  renderRecent();
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    document.querySelectorAll("[data-error-for]").forEach(el => el.textContent = "");
+    document.querySelectorAll(".fw-field.invalid").forEach(el => el.classList.remove("invalid"));
+
+    const amount = Number(form.loanAmount.value);
+    const rate = Number(form.interestRate.value);
+    const tenure = Number(form.loanTenure.value);
+    let hasError = false;
+
+    if (!amount || amount <= 0) { setError("loanAmount", "Loan amount must be greater than 0."); hasError = true; }
+    if (rate === "" || rate <= 0 || isNaN(rate)) { setError("interestRate", "Interest rate must be greater than 0."); hasError = true; }
+    if (!tenure || tenure <= 0) { setError("loanTenure", "Loan tenure must be greater than 0."); hasError = true; }
+
+    if (hasError) { showToast("Please correct the highlighted fields.", "warning"); return; }
+
+    const b = computeEMIBreakdown(amount, rate, tenure);
+    renderResult(b);
+    showToast("EMI calculated successfully.", "success");
+
+    FWStore.push(FWStore.KEYS.EMI, { amount, rate, tenure, emi: b.emi });
+    renderRecent();
+  });
+
+  function setError(field, msg) {
+    const el = document.querySelector(`[data-error-for="${field}"]`);
+    el.textContent = msg;
+    el.closest(".fw-field").classList.add("invalid");
+  }
+
+  function renderResult(b) {
+    const principalPct = Math.round((b.principal / b.totalPayment) * 100);
+    resultBox.innerHTML = `
+      <div class="fw-amount-hero">
+        <div class="label">Monthly EMI</div>
+        <div class="value" data-counter="${b.emi}" data-decimals="0">₹0</div>
+      </div>
+
+      <div class="fw-breakdown-bar">
+        <div class="principal" style="width:${principalPct}%"></div>
+        <div class="interest" style="width:${100 - principalPct}%"></div>
+      </div>
+      <div class="fw-legend">
+        <span><i style="background:var(--blue);"></i> Principal</span>
+        <span><i style="background:var(--purple);"></i> Interest</span>
+      </div>
+
+      <div class="fw-detail-grid mt-24">
+        <div class="fw-detail-item"><div class="label">Principal Amount</div><div class="value">₹${b.principal.toLocaleString("en-IN")}</div></div>
+        <div class="fw-detail-item"><div class="label">Total Interest</div><div class="value">₹${b.totalInterest.toLocaleString("en-IN")}</div></div>
+        <div class="fw-detail-item"><div class="label">Total Payment</div><div class="value">₹${b.totalPayment.toLocaleString("en-IN")}</div></div>
+        <div class="fw-detail-item"><div class="label">Tenure</div><div class="value">${b.tenureMonths} months</div></div>
+      </div>
+    `;
+    const counterEl = resultBox.querySelector("[data-counter]");
+    if (counterEl) {
+      const target = parseFloat(counterEl.dataset.counter);
+      let start = performance.now();
+      const dur = 900;
+      function frame(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        counterEl.textContent = "₹" + Math.round(target * eased).toLocaleString("en-IN");
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+  }
+
+  function renderRecent() {
+    const list = document.getElementById("emi-recent-list");
+    const clearBtn = document.getElementById("emi-clear-history");
+    const history = FWStore.get(FWStore.KEYS.EMI);
+    if (!history.length) {
+      list.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No calculations yet.</p>`;
+      clearBtn.style.display = "none";
+      return;
+    }
+    clearBtn.style.display = "inline-flex";
+    list.innerHTML = history.map(h => `
+      <div class="fw-recent-item">
+        <div>
+          <div>₹${Number(h.amount).toLocaleString("en-IN")} @ ${h.rate}% for ${h.tenure} yrs</div>
+          <div class="fw-recent-meta">${new Date(h.savedAt).toLocaleString()}</div>
+        </div>
+        <span class="fw-badge low">₹${Number(h.emi).toLocaleString("en-IN")}/mo</span>
+      </div>`).join("");
+    clearBtn.onclick = () => { FWStore.clear(FWStore.KEYS.EMI); renderRecent(); showToast("History cleared.", "info"); };
+  }
+});
+</script>
+</body>
+</html>

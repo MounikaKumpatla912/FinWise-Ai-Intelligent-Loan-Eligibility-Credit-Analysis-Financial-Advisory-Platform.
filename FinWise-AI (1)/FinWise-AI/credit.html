@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Score Analyzer — FinWise AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<button class="fw-nav-toggle" id="fw-nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+<div class="fw-nav-overlay" id="fw-nav-overlay"></div>
+
+<div class="fw-app">
+  <aside class="fw-sidebar" id="fw-sidebar"></aside>
+
+  <main class="fw-main">
+    <div class="fw-container">
+      <div class="fw-page-header">
+        <h1>Credit Score Analyzer</h1>
+        <p>Understand your credit health and discover ways to improve it.</p>
+      </div>
+
+      <div class="fw-grid-2" style="align-items:start;">
+        <form class="fw-card" id="credit-form" novalidate>
+          <div class="fw-field">
+            <label for="c-score">Credit Score (300–900)</label>
+            <input type="number" id="c-score" name="creditScore" placeholder="e.g. 742" min="300" max="900" required>
+            <div class="fw-error-msg" data-error-for="creditScore"></div>
+          </div>
+          <button type="submit" class="fw-btn fw-btn-primary fw-btn-block mt-24">Analyze Score</button>
+        </form>
+
+        <div class="fw-card" id="credit-result">
+          <div class="fw-empty-state">
+            <i class="fa-solid fa-gauge-high"></i>
+            <p>Enter your credit score to see your analysis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="fw-footer" id="fw-footer"></footer>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/credit.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("credit-form");
+  const resultBox = document.getElementById("credit-result");
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const errEl = document.querySelector('[data-error-for="creditScore"]');
+    errEl.textContent = "";
+    form.creditScore.closest(".fw-field").classList.remove("invalid");
+
+    const score = Number(form.creditScore.value);
+    if (!score || score < 300 || score > 900) {
+      errEl.textContent = "Please enter a valid credit score between 300 and 900.";
+      form.creditScore.closest(".fw-field").classList.add("invalid");
+      showToast("Please enter a valid credit score.", "warning");
+      return;
+    }
+
+    const info = classifyCredit(score);
+    const pct = Math.max(0, Math.min(1, (score - 300) / (900 - 300)));
+    const circumference = 2 * Math.PI * 70;
+    const offset = circumference * (1 - pct);
+
+    resultBox.innerHTML = `
+      <div class="fw-gauge-wrap">
+        <div class="fw-gauge" style="position:relative; width:200px; height:200px;">
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"/>
+            <circle cx="100" cy="100" r="70" fill="none" stroke="${info.color}" stroke-width="16"
+              stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}"
+              stroke-linecap="round" transform="rotate(-90 100 100)" id="gauge-circle"/>
+          </svg>
+          <div class="fw-gauge-center" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <div class="fw-gauge-score">${score}</div>
+            <div class="fw-gauge-rating">${info.rating}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fw-detail-grid">
+        <div class="fw-detail-item"><div class="label">Rating</div><div class="value">${info.rating}</div></div>
+        <div class="fw-detail-item"><div class="label">Score Range</div><div class="value">${info.range}</div></div>
+      </div>
+
+      <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.6; margin:16px 0;">${creditExplanation(info.rating)}</p>
+
+      <h3 style="font-size:0.95rem; margin-top:8px;">Recommendations</h3>
+      <ul class="fw-tips-list">
+        ${creditRecommendations(info.rating).map(r => `<li>${r}</li>`).join("")}
+      </ul>
+    `;
+
+    requestAnimationFrame(() => {
+      const circle = document.getElementById("gauge-circle");
+      if (circle) circle.style.strokeDashoffset = offset;
+    });
+
+    showToast("Credit score analyzed.", "success");
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Financial Advisor — FinWise AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<button class="fw-nav-toggle" id="fw-nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+<div class="fw-nav-overlay" id="fw-nav-overlay"></div>
+
+<div class="fw-app">
+  <aside class="fw-sidebar" id="fw-sidebar"></aside>
+
+  <main class="fw-main">
+    <div class="fw-container">
+      <div class="fw-page-header">
+        <h1>AI Financial Advisor</h1>
+        <p>Get personalized financial guidance powered by Artificial Intelligence.</p>
+      </div>
+
+      <div class="fw-chat-shell">
+        <div class="fw-card">
+          <h3 style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Suggested questions</h3>
+          <div class="fw-suggested-list">
+            <button class="fw-suggested-q">How can I improve my credit score?</button>
+            <button class="fw-suggested-q">Can I afford this loan?</button>
+            <button class="fw-suggested-q">How much EMI can I comfortably pay?</button>
+            <button class="fw-suggested-q">How should I plan my monthly budget?</button>
+            <button class="fw-suggested-q">How can I reduce my debt?</button>
+            <button class="fw-suggested-q">What should I consider before taking a loan?</button>
+          </div>
+        </div>
+
+        <div class="fw-card fw-chat-panel">
+          <div class="fw-chat-thread" id="advisor-thread"></div>
+          <form class="fw-chat-form" id="advisor-form">
+            <input type="text" id="advisor-input" placeholder="Ask about loans, credit, EMI, budgeting..." autocomplete="off">
+            <button type="submit" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="fw-footer" id="fw-footer"></footer>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/advisor.js"></script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Eligibility Checker — FinWise AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<button class="fw-nav-toggle" id="fw-nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+<div class="fw-nav-overlay" id="fw-nav-overlay"></div>
+
+<div class="fw-app">
+  <aside class="fw-sidebar" id="fw-sidebar"></aside>
+
+  <main class="fw-main">
+    <div class="fw-container">
+      <div class="fw-page-header">
+        <h1>Loan Eligibility Checker</h1>
+        <p>Check your loan eligibility in just a few seconds.</p>
+      </div>
+
+      <div class="fw-grid-2" id="fw-loan-layout" style="align-items:start;">
+        <form class="fw-card" id="loan-form" novalidate>
+          <div class="fw-form-grid">
+            <div class="fw-field full">
+              <label for="l-name">Full Name</label>
+              <input type="text" id="l-name" name="name" placeholder="e.g. Priya Sharma" required>
+              <div class="fw-error-msg" data-error-for="name"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-age">Age</label>
+              <input type="number" id="l-age" name="age" placeholder="e.g. 28" min="18" max="80" required>
+              <div class="fw-error-msg" data-error-for="age"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-income">Monthly Income (₹)</label>
+              <input type="number" id="l-income" name="income" placeholder="e.g. 55000" min="0" required>
+              <div class="fw-error-msg" data-error-for="income"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-employment">Employment Type</label>
+              <select id="l-employment" name="employmentType" required>
+                <option value="">Select employment type</option>
+                <option>Salaried</option>
+                <option>Self-Employed</option>
+                <option>Business Owner</option>
+                <option>Professional</option>
+              </select>
+              <div class="fw-error-msg" data-error-for="employmentType"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-credit">Credit Score</label>
+              <input type="number" id="l-credit" name="creditScore" placeholder="300–900" min="300" max="900" required>
+              <div class="fw-error-msg" data-error-for="creditScore"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-emi">Existing EMI (₹)</label>
+              <input type="number" id="l-emi" name="existingEmi" placeholder="e.g. 5000" min="0" required>
+              <div class="fw-error-msg" data-error-for="existingEmi"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-amount">Loan Amount (₹)</label>
+              <input type="number" id="l-amount" name="loanAmount" placeholder="e.g. 500000" min="0" required>
+              <div class="fw-error-msg" data-error-for="loanAmount"></div>
+            </div>
+
+            <div class="fw-field">
+              <label for="l-tenure">Loan Tenure (months)</label>
+              <input type="number" id="l-tenure" name="loanTenure" placeholder="e.g. 60" min="1" required>
+              <div class="fw-error-msg" data-error-for="loanTenure"></div>
+            </div>
+
+            <div class="fw-field full">
+              <label for="l-type">Loan Type</label>
+              <select id="l-type" name="loanType" required>
+                <option value="">Select loan type</option>
+                <option>Personal Loan</option>
+                <option>Home Loan</option>
+                <option>Vehicle Loan</option>
+                <option>Education Loan</option>
+              </select>
+              <div class="fw-error-msg" data-error-for="loanType"></div>
+            </div>
+          </div>
+
+          <button type="submit" class="fw-btn fw-btn-primary fw-btn-block mt-24" id="loan-submit-btn">
+            <span class="btn-label">Check Eligibility</span>
+          </button>
+        </form>
+
+        <div>
+          <!-- Result renders here -->
+          <div class="fw-card" id="loan-result-empty">
+            <div class="fw-empty-state">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+              <p>Fill in the form to see your eligibility result here.</p>
+            </div>
+          </div>
+          <div id="loan-result" style="display:none;"></div>
+
+          <div class="fw-card mt-24" id="loan-recent-card">
+            <h3 style="font-size:1rem;">Recent Activity</h3>
+            <div class="fw-recent-list" id="loan-recent-list"></div>
+            <button class="fw-btn fw-btn-ghost mt-16" id="loan-clear-history" style="display:none;">Clear History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="fw-footer" id="fw-footer"></footer>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/eligibility.js"></script>
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("loan-form");
+  const submitBtn = document.getElementById("loan-submit-btn");
+  const resultEmpty = document.getElementById("loan-result-empty");
+  const resultBox = document.getElementById("loan-result");
+
+  renderRecent();
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    clearErrors();
+
+    const data = {
+      name: form.name.value.trim(),
+      age: Number(form.age.value),
+      income: Number(form.income.value),
+      employmentType: form.employmentType.value,
+      creditScore: Number(form.creditScore.value),
+      existingEmi: form.existingEmi.value === "" ? "" : Number(form.existingEmi.value),
+      loanAmount: Number(form.loanAmount.value),
+      loanTenure: Number(form.loanTenure.value),
+      loanType: form.loanType.value
+    };
+
+    const errors = validateEligibilityForm(data);
+    if (Object.keys(errors).length) {
+      showErrors(errors);
+      showToast("Please correct the highlighted fields.", "warning");
+      return;
+    }
+
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 500)); // brief perceived-processing delay
+    const result = assessEligibility(data);
+    setLoading(false);
+
+    renderResult(data, result);
+    showToast("Eligibility analysis completed.", "success");
+
+    FWStore.push(FWStore.KEYS.LOAN, {
+      name: data.name, income: data.income, creditScore: data.creditScore,
+      existingEmi: data.existingEmi, loanType: data.loanType,
+      eligibility: result.eligible ? "Eligible" : "Not Eligible",
+      riskLevel: result.riskLevel, eligibleAmount: result.eligibleAmount
+    });
+    renderRecent();
+
+    const saveRes = await FinWiseAPI.saveToGoogleSheets({
+      timestamp: new Date().toISOString(), ...data,
+      eligibilityStatus: result.eligible ? "Eligible" : "Not Eligible",
+      eligibleAmount: result.eligibleAmount, riskLevel: result.riskLevel
+    });
+    if (!saveRes.configured) {
+      showToast(saveRes.message, "info");
+    } else {
+      showToast(saveRes.message, saveRes.ok ? "success" : "warning");
+    }
+  });
+
+  function setLoading(isLoading) {
+    submitBtn.disabled = isLoading;
+    submitBtn.innerHTML = isLoading
+      ? '<span class="fw-spinner"></span> Analyzing...'
+      : '<span class="btn-label">Check Eligibility</span>';
+  }
+
+  function clearErrors() {
+    document.querySelectorAll("[data-error-for]").forEach(el => el.textContent = "");
+    document.querySelectorAll(".fw-field.invalid").forEach(el => el.classList.remove("invalid"));
+  }
+
+  function showErrors(errors) {
+    Object.entries(errors).forEach(([field, msg]) => {
+      const el = document.querySelector(`[data-error-for="${field}"]`);
+      if (el) { el.textContent = msg; el.closest(".fw-field").classList.add("invalid"); }
+    });
+  }
+
+  function renderResult(data, result) {
+    resultEmpty.style.display = "none";
+    resultBox.style.display = "block";
+
+    if (result.eligible) {
+      resultBox.innerHTML = `
+        <div class="fw-card">
+          <div class="fw-result-icon success"><i class="fa-solid fa-check"></i></div>
+          <div class="fw-result-title">Congratulations!</div>
+          <div class="fw-result-subtitle">You are Eligible for the Loan</div>
+
+          <div class="fw-amount-hero">
+            <div class="label">Estimated Maximum Loan Amount</div>
+            <div class="value">₹${result.eligibleAmount.toLocaleString("en-IN")}</div>
+          </div>
+
+          <div class="fw-detail-grid">
+            <div class="fw-detail-item"><div class="label">Interest Rate</div><div class="value">${result.interestRate}%</div></div>
+            <div class="fw-detail-item"><div class="label">Loan Tenure</div><div class="value">${result.tenure} months</div></div>
+            <div class="fw-detail-item"><div class="label">Approx. Monthly EMI</div><div class="value">₹${result.approxEmi.toLocaleString("en-IN")}</div></div>
+            <div class="fw-detail-item"><div class="label">Risk Level</div><div class="value"><span class="fw-badge ${riskClass(result.riskLevel)}">${result.riskLevel}</span></div></div>
+          </div>
+
+          <p style="color:var(--text-secondary); font-size:0.9rem;">You are eligible based on the information provided.</p>
+          <a href="advisor.html" class="fw-btn fw-btn-primary fw-btn-block mt-24">Get AI Recommendation</a>
+        </div>`;
+    } else {
+      resultBox.innerHTML = `
+        <div class="fw-card">
+          <div class="fw-result-icon fail"><i class="fa-solid fa-xmark"></i></div>
+          <div class="fw-result-title">Sorry!</div>
+          <div class="fw-result-subtitle">You are Not Eligible for the Loan</div>
+
+          <ul class="fw-reasons-list">
+            ${result.reasons.map(r => `<li>${r}</li>`).join("")}
+          </ul>
+
+          <h3 style="font-size:0.95rem; margin-top:20px;">How to improve your profile</h3>
+          <ul class="fw-tips-list">
+            ${result.suggestions.map(s => `<li>${s}</li>`).join("")}
+          </ul>
+
+          <a href="advisor.html" class="fw-btn fw-btn-primary fw-btn-block mt-24">Improve My Financial Profile</a>
+        </div>`;
+    }
+  }
+
+  function riskClass(level) {
+    if (level === "Low Risk") return "low";
+    if (level === "Medium Risk") return "medium";
+    return "high";
+  }
+
+  function renderRecent() {
+    const list = document.getElementById("loan-recent-list");
+    const clearBtn = document.getElementById("loan-clear-history");
+    const history = FWStore.get(FWStore.KEYS.LOAN);
+    if (!history.length) {
+      list.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">No assessments yet.</p>`;
+      clearBtn.style.display = "none";
+      return;
+    }
+    clearBtn.style.display = "inline-flex";
+    list.innerHTML = history.map(h => `
+      <div class="fw-recent-item">
+        <div>
+          <div>${h.name || "Unnamed"} — ${h.loanType || ""}</div>
+          <div class="fw-recent-meta">${new Date(h.savedAt).toLocaleString()}</div>
+        </div>
+        <span class="fw-badge ${h.eligibility === "Eligible" ? "low" : "high"}">${h.eligibility}</span>
+      </div>`).join("");
+    clearBtn.onclick = () => { FWStore.clear(FWStore.KEYS.LOAN); renderRecent(); showToast("History cleared.", "info"); };
+  }
+});
+</script>
+</body>
+</html>
